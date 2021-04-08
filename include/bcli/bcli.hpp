@@ -3041,6 +3041,7 @@ PRIVATE:
         m_is_param = false;
         m_last_is_flag = true;
         cp->set();
+        get_current_param(m_current)->process(FLAG_VALUE);
       }
 
       if (cp->get_action() != Action::Nothing) return cp->get_action();
