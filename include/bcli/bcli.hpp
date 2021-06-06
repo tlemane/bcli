@@ -2414,6 +2414,11 @@ public:
     c_pchecker = checker;
   }
 
+  void positionals_setter(setter_fn_t setter)
+  {
+    c_psetter = setter;
+  }
+
   auto begin() { return m_order.begin(); }
   auto end() { return m_order.end(); }
   auto begin() const { return m_order.begin(); } 
@@ -2556,6 +2561,8 @@ PRIVATE:
   {
     m_positionals.push_back(arg);
     m_nb_pos++;
+    if (c_psetter)
+      c_psetter(arg);
   }
 
   void add(pgroup_t pg)
@@ -2602,6 +2609,7 @@ PRIVATE:
   bool   m_bmode {false};
 
   checker_fn_t c_pchecker {nullptr};
+  setter_fn_t  c_psetter {nullptr};
 };
 
 /**
