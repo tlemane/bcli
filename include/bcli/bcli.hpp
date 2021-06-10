@@ -3004,7 +3004,6 @@ public:
     return nullptr;
   }
 
-PRIVATE:
   void show_help()
   {
     if (!m_is_cmd_mode || m_bypass)
@@ -3017,6 +3016,7 @@ PRIVATE:
     }
   }
 
+PRIVATE:
   void show_version()
   {
     std::cerr << m_name << " " << m_version << std::endl;
