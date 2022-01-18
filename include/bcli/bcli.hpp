@@ -19,7 +19,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
+ *
  * @file bcli.hpp
  * @author Téo Lemane
  * @version 0.0.1
@@ -42,9 +42,9 @@
 
 /**
  * @mainpage
- * 
+ *
  * Public API is described in Modules section. \n \n
- * 
+ *
  * Modules:
  *  - @link Configuration @endlink
  *  - @link Exceptions @endlink
@@ -54,7 +54,7 @@
  *  - @link ParamGroup @endlink
  *  - @link Command @endlink
  *  - @link Parser @endlink
- * 
+ *
  * Examples:
  *  - @link 01_bcli_basic.cpp @endlink
  *  - @link 02_bcli_setter.cpp @endlink
@@ -123,7 +123,7 @@
 /**
  * @namespace bc
  * @brief bcli namespace
- * 
+ *
  * Main namespace.
  */
 namespace bc {
@@ -142,7 +142,7 @@ class Parser;
  * @ingroup Configuration
  * @namespace config
  * @brief bcli configuration namespace
- * 
+ *
  * This namespace contains essentially a config singleton (bc::config::Config).
  */
 namespace config {
@@ -153,9 +153,9 @@ class Param;
 /**
  * @ingroup Configuration
  * @brief A configuration singleton to manage bcli configuration
- * 
+ *
  * Shortcut bc::conf
- * 
+ *
  * Usage:
  * @code
  * bc::conf::get().help(true)
@@ -176,7 +176,7 @@ private:
 public:
   /**
    * @brief Get the config singleton
-   * 
+   *
    * @return Config&
    */
   static Config& get()
@@ -217,7 +217,7 @@ public:
 /**
  * @defgroup Exceptions
  * @brief About bcli exceptions.
- * 
+ *
  * Exceptions are contained within two groups:
  * - ImplError: handled by bc::ex::ExHandler
  *   - bc::ex::InvalidParamError
@@ -251,7 +251,7 @@ namespace ex {
  * @enum ExitCodes
  * @ingroup Exceptions
  * @brief bcli exit codes
- * 
+ *
  */
 enum ExitCodes
 {
@@ -266,7 +266,7 @@ enum ExitCodes
  * @class BCliError
  * @ingroup Exceptions
  * @brief bcli base error class
- * 
+ *
  */
 class BCliError : public std::exception
 {
@@ -288,7 +288,7 @@ public:
  * @def ERROR_CTR
  * @ingroup Exceptions
  * @brief A shortcut for exception constructor
- * 
+ *
  */
 #define ERROR_CTR(name, code) name(const std::string& msg) : BCliError(#name, msg, code) {}
 
@@ -296,7 +296,7 @@ public:
  * @def ERROR_CLS
  * @ingroup Exceptions
  * @brief Define a new exception class that inherits from BCliError
- * 
+ *
  * **Usage:**
  * @code
  * ERROR_CLS(MyExcept, ex::ExitCodes::Failure)
@@ -313,7 +313,7 @@ public:
  * @exception InvalidParamError
  * @ingroup Exceptions
  * @brief Thrown if param name is invalid.
- * 
+ *
  */
 ERROR_CLS(InvalidParamError, ExitCodes::ImplError)
 
@@ -321,7 +321,7 @@ ERROR_CLS(InvalidParamError, ExitCodes::ImplError)
  * @exception UnknownParamError
  * @ingroup Exceptions
  * @brief Thrown if the used parameter is unknown.
- * 
+ *
  */
 ERROR_CLS(UnknownParamError, ExitCodes::ImplError)
 
@@ -329,7 +329,7 @@ ERROR_CLS(UnknownParamError, ExitCodes::ImplError)
  * @exception UnknownGroupError
  * @ingroup Exceptions
  * @brief Thrown if the called group is unknown.
- * 
+ *
  */
 ERROR_CLS(UnknownGroupError, ExitCodes::ImplError)
 
@@ -337,7 +337,7 @@ ERROR_CLS(UnknownGroupError, ExitCodes::ImplError)
  * @exception CmdModeError
  * @ingroup Exceptions
  * @brief Unused.
- * 
+ *
  */
 ERROR_CLS(CmdModeError, ExitCodes::ImplError)
 
@@ -345,7 +345,7 @@ ERROR_CLS(CmdModeError, ExitCodes::ImplError)
  * @exception AlreadyExistsError
  * @ingroup Exceptions
  * @brief Thrown if a parameter already exists in the current command.
- * 
+ *
  */
 ERROR_CLS(AlreadyExistsError, ExitCodes::ImplError)
 
@@ -353,7 +353,7 @@ ERROR_CLS(AlreadyExistsError, ExitCodes::ImplError)
  * @exception FileNotFoundError
  * @ingroup Exceptions
  * @brief Thrown if the parameter value is not a valid file.
- * 
+ *
  */
 ERROR_CLS(FileNotFoundError, ExitCodes::UsageError)
 
@@ -361,7 +361,7 @@ ERROR_CLS(FileNotFoundError, ExitCodes::UsageError)
  * @exception DirNotFoundError
  * @ingroup Exceptions
  * @brief Thrown if the parameter value is not a valid dir.
- * 
+ *
  */
 ERROR_CLS(DirNotFoundError, ExitCodes::UsageError)
 
@@ -369,7 +369,7 @@ ERROR_CLS(DirNotFoundError, ExitCodes::UsageError)
  * @exception CheckFailedError
  * @ingroup Exceptions
  * @brief Thrown is value checking failed.
- * 
+ *
  */
 ERROR_CLS(CheckFailedError, ExitCodes::UsageError)
 
@@ -377,7 +377,7 @@ ERROR_CLS(CheckFailedError, ExitCodes::UsageError)
  * @exception MissingValueError
  * @ingroup Exceptions
  * @brief Thrown if a value-parameter is used without any value.
- * 
+ *
  */
 ERROR_CLS(MissingValueError, ExitCodes::UsageError)
 
@@ -385,7 +385,7 @@ ERROR_CLS(MissingValueError, ExitCodes::UsageError)
  * @exception UnknownCmdError
  * @ingroup Exceptions
  * @brief Thrown if a cmd is unknown.
- * 
+ *
  */
 ERROR_CLS(UnknownCmdError, ExitCodes::UsageError)
 
@@ -393,7 +393,7 @@ ERROR_CLS(UnknownCmdError, ExitCodes::UsageError)
  * @exception RequiredParamError
  * @ingroup Exceptions
  * @brief Thrown if a required parameter is not used.
- * 
+ *
  */
 ERROR_CLS(RequiredParamError, ExitCodes::UsageError)
 
@@ -401,7 +401,7 @@ ERROR_CLS(RequiredParamError, ExitCodes::UsageError)
  * @exception IncompatibleError
  * @ingroup Exceptions
  * @brief Thrown if parameters are incompatibles.
- * 
+ *
  */
 ERROR_CLS(IncompatibleError, ExitCodes::UsageError)
 
@@ -409,7 +409,7 @@ ERROR_CLS(IncompatibleError, ExitCodes::UsageError)
  * @exception BannedError
  * @ingroup Exceptions
  * @brief Thrown if values of several parameters are inconsistent.
- * 
+ *
  */
 ERROR_CLS(BannedError, ExitCodes::UsageError)
 
@@ -417,7 +417,7 @@ ERROR_CLS(BannedError, ExitCodes::UsageError)
  * @exception DependsError
  * @ingroup Exceptions
  * @brief Thrown if values of several parameters are mutually dependent.
- * 
+ *
  */
 ERROR_CLS(DependsError, ExitCodes::UsageError)
 
@@ -426,7 +426,7 @@ ERROR_CLS(DependsError, ExitCodes::UsageError)
  * @exception PositionalsError
  * @ingroup Exceptions
  * @brief Thrown if positionals are inconsistent.
- * 
+ *
  */
 ERROR_CLS(PositionalsError, ExitCodes::UsageError)
 
@@ -478,7 +478,7 @@ public:
       throw BCliError("", "", Failure);
     }
   }
-  
+
   void clear()
   {
     m_exceptions = std::vector<BCliError>{};
@@ -510,7 +510,7 @@ PRIVATE:
  * @ingroup Utilities
  * @namespace utils
  * @brief bcli utilities
- * 
+ *
  */
 namespace utils {
 
@@ -616,8 +616,8 @@ inline std::string join(const T& v, const std::string& delim, Formatter format)
 /**
  * @ingroup Utilities
  * @brief join
- * 
- * @tparam T 
+ *
+ * @tparam T
  * @param v an iterable string container
  * @param delim a string delimiter
  * @return std::string
@@ -631,8 +631,8 @@ inline std::string join(const T& v, const std::string& delim)
 /**
  * @ingroup Utilities
  * @brief startswith
- * @param s 
- * @param p 
+ * @param s
+ * @param p
  * @return true if s starts with p
  * @return false if s doesn't start with p
  */
@@ -645,8 +645,8 @@ inline bool startswith(const std::string& s, const std::string& p)
 /**
  * @ingroup Utilities
  * @brief endswith
- * @param s 
- * @param p 
+ * @param s
+ * @param p
  * @return true if s ends with p
  * @return false if s doesn't end with p
  */
@@ -659,9 +659,9 @@ inline bool endswith(const std::string& s, const std::string& p)
 /**
  * @ingroup Utilities
  * @brief contains
- * 
- * @param s 
- * @param p 
+ *
+ * @param s
+ * @param p
  * @return true if s contains p
  * @return false if p not in s
  */
@@ -677,15 +677,15 @@ const std::string WHITECHAR = " \n\r\t\f\v";
 /**
  * @ingroup Utilities
  * @brief rtrim
- * 
+ *
  * Right trimming.
  * @code
  * trim("-test-|", "|-") -> "-test"
  * @endcode
- * 
+ *
  * @param s a string to trim
  * @param v a string of banned char
- * @return std::string 
+ * @return std::string
  */
 inline std::string rtrim(const std::string& s, const std::string& v = WHITECHAR)
 {
@@ -698,15 +698,15 @@ inline std::string rtrim(const std::string& s, const std::string& v = WHITECHAR)
 /**
  * @ingroup Utilities
  * @brief ltrim
- * 
+ *
  * Left trimming.
  * @code
  * trim("-test-|", "|-") -> "test-|"
  * @endcode
- * 
+ *
  * @param s a string to trim
  * @param v a string of banned char
- * @return std::string 
+ * @return std::string
  */
 inline std::string ltrim(const std::string& s, const std::string& v = WHITECHAR)
 {
@@ -719,15 +719,15 @@ inline std::string ltrim(const std::string& s, const std::string& v = WHITECHAR)
 /**
  * @ingroup Utilities
  * @brief trim
- * 
+ *
  * Both sides trimming.
  * @code
  * trim("-test-|", "|-") -> "test"
  * @endcode
- * 
+ *
  * @param s a string to trim
  * @param v a string of banned char
- * @return std::string 
+ * @return std::string
  */
 inline std::string trim(const std::string& s, const std::string& v = WHITECHAR)
 {
@@ -737,13 +737,13 @@ inline std::string trim(const std::string& s, const std::string& v = WHITECHAR)
 /**
  * @ingroup Utilities
  *from_str_to_Tplit string in half.
- * 
+ *
  * @code
  * split2("test") -> {"te", "st"}
  * @endcode
- * 
+ *
  * @param s a string to split
- * @return std::tuple<std::string, std::string> 
+ * @return std::tuple<std::string, std::string>
  */
 inline std::tuple<std::string, std::string> split2(const std::string& s)
 {
@@ -755,13 +755,13 @@ inline std::tuple<std::string, std::string> split2(const std::string& s)
 /**
  * @ingroup Utilities
  * @brief wrap
- * 
+ *
  * @code
  * wrap("test", "[]") -> "[test]"
  * @endcode
  * @param s a string to wrap
  * @param bounds wrappers, see code example
- * @return std::string 
+ * @return std::string
  */
 inline std::string wrap(const std::string& s, const std::string& bounds)
 {
@@ -774,14 +774,14 @@ inline std::string wrap(const std::string& s, const std::string& bounds)
 /**
  * @ingroup Utilities
  * @brief unwrap
- * 
+ *
  * @code
  * unwrap("([test])", 1) -> "[test]"
  * unwrap("([test])", 2) -> "test"
  * @endcode
  * @param s a string to unwrap
  * @param size size, see code example
- * @return std::string 
+ * @return std::string
  */
 inline std::string unwrap(const std::string& s, size_t size)
 {
@@ -791,12 +791,12 @@ inline std::string unwrap(const std::string& s, size_t size)
 /**
  * @ingroup Utilities
  * @brief split
- * 
- * @tparam std::function<std::string(const std::string&)> 
+ *
+ * @tparam std::function<std::string(const std::string&)>
  * @param s a string to split
  * @param delim a char delimiter
  * @param format a string formatter
- * @return std::vector<std::string> 
+ * @return std::vector<std::string>
  */
 template<typename Formatter = std::function<std::string(const std::string&)>>
 std::vector<std::string> split(const std::string& s, char delim, Formatter format)
@@ -811,10 +811,10 @@ std::vector<std::string> split(const std::string& s, char delim, Formatter forma
 /**
  * @ingroup Utilities
  * @brief split
- * 
+ *
  * @param s a string to split
  * @param delim a char delimiter
- * @return std::vector<std::string> 
+ * @return std::vector<std::string>
  */
 inline std::vector<std::string> split(const std::string& s, char delim)
 {
@@ -824,7 +824,7 @@ inline std::vector<std::string> split(const std::string& s, char delim)
 /**
  * @ingroup Utilities
  * @brief is_long_param
- * 
+ *
  * @code
  * is_long_param("--param") -> true
  * @endcode
@@ -840,13 +840,13 @@ inline bool is_long_param(const std::string& p)
 /**
  * @ingroup Utilities
  * @brief is_short_param
- * 
+ *
  * @code
  * is_short_param("-p") -> true
  * @endcode
  * @param p a parameter
  * @return true if p starts with "-"
- * @return false 
+ * @return false
  */
 inline bool is_short_param(const std::string& p)
 {
@@ -858,10 +858,10 @@ inline bool is_short_param(const std::string& p)
 /**
  * @ingroup Utilities
  * @brief is_param
- * 
+ *
  * @param p a parameter
  * @return true if p starts with "-" or "--"
- * @return false 
+ * @return false
  */
 inline bool is_param(const std::string& p)
 {
@@ -871,12 +871,12 @@ inline bool is_param(const std::string& p)
 /**
  * @ingroup Utilities
  * @brief trim_param
- * 
+ *
  * @code
  * trim_param("--param") -> "param"
  * @endcode
  * @param p a parameter to trim
- * @return std::string 
+ * @return std::string
  */
 inline std::string trim_param(const std::string& p)
 {
@@ -886,11 +886,11 @@ inline std::string trim_param(const std::string& p)
 /**
  * @ingroup Utilities
  * @brief format_error
- * 
- * @param p 
- * @param v 
- * @param m 
- * @return std::string 
+ *
+ * @param p
+ * @param v
+ * @param m
+ * @return std::string
  */
 inline std::string format_error(const std::string& p, const std::string& v, const std::string& m)
 {
@@ -902,12 +902,12 @@ inline std::string format_error(const std::string& p, const std::string& v, cons
 /**
  * @ingroup Utilities
  * @brief  format_depend_errors
- * 
- * @tparam T 
- * @param p 
- * @param d 
- * @param msg 
- * @return std::string 
+ *
+ * @tparam T
+ * @param p
+ * @param d
+ * @param msg
+ * @return std::string
  */
 template<typename T>
 inline std::string format_depend_errors(T p, T d, const std::string& msg)
@@ -921,12 +921,12 @@ inline std::string format_depend_errors(T p, T d, const std::string& msg)
 /**
  * @ingroup Utilities
  * @brief format_banned_errors
- * 
- * @tparam T 
- * @param p 
- * @param d 
- * @param msg 
- * @return std::string 
+ *
+ * @tparam T
+ * @param p
+ * @param d
+ * @param msg
+ * @return std::string
  */
 template<typename T>
 inline std::string format_banned_errors(T p, T d, const std::string& msg)
@@ -944,7 +944,7 @@ inline std::string format_banned_errors(param_t, param_t, const std::string& msg
 /**
  * @ingroup Utilities
  * @brief valid_string
- * 
+ *
  * @code
  * auto validator = [](const char& c) -> bool {
  *   if (c == 'A' || c == 'C' || c == 'T' || c == 'G')
@@ -953,9 +953,9 @@ inline std::string format_banned_errors(param_t, param_t, const std::string& msg
  * };
  * valid_string("ACGTTTACGA", validator);
  * @endcode
- * @tparam std::function<bool(const char&)> 
- * @param s 
- * @param valid 
+ * @tparam std::function<bool(const char&)>
+ * @param s
+ * @param valid
  * @return true if s is valid
  * @return false if s is invalid
  */
@@ -970,10 +970,10 @@ bool valid_string(const std::string& s, Validator valid)
 
 /**
  * @ingroup Utilities
- * @brief sp 
- * 
- * @param n 
- * @return std::string 
+ * @brief sp
+ *
+ * @param n
+ * @return std::string
  */
 inline std::string sp(int n)
 {
@@ -983,8 +983,8 @@ inline std::string sp(int n)
 /**
  * @ingroup Utilities
  * @brief exit_bcli
- * 
- * @param e 
+ *
+ * @param e
  */
 inline void exit_bcli(const ex::BCliError& e)
 {
@@ -997,27 +997,27 @@ inline void exit_bcli(const ex::BCliError& e)
 /**
  * @defgroup Checkers
  * @brief About bcli checkers.
- * 
+ *
  * Checkers are functions used to parameter value validation.
  * A checker take two parameters:
  *  - an id, usually a parameter (ex: "--param")
  *  - a value to check
- * 
+ *
  * And returns a std::tuple<bool, std::string>
  *  - 0: true if check success, false otherwise
  *  - 1: An error message
- * 
+ *
  * Two namespaces:
  *  - check -> contains checkers
  *  - check::f -> contains factories
- * 
+ *
  */
 
 /**
  * @namespace check
  * @ingroup Checkers
  * @brief bcli check namespace
- * 
+ *
  */
 namespace check {
 
@@ -1033,7 +1033,7 @@ using checker_ret_t = std::tuple<bool, std::string>;
  * @typedef checker_fn_t
  * @ingroup Checkers
  * @brief checkers function signature
- * 
+ *
  */
 using checker_fn_t = std::function<checker_ret_t(const std::string&, const std::string&)>;
 
@@ -1041,7 +1041,7 @@ using checker_fn_t = std::function<checker_ret_t(const std::string&, const std::
 /**
  * @ingroup Checkers
  * @brief throw ex::CheckFailedError if checker returns false
- * 
+ *
  * ex: throw_if_false(check::is_number("--integer", "10"));
  */
 inline void throw_if_false(const checker_ret_t& rc)
@@ -1068,14 +1068,14 @@ DEFINE_CHECKER(always_true, p, v)
 /**
  * @ingroup Checkers
  * @brief is_file checker
- * 
+ *
  * Return true if v corresponds to a file.
- * 
+ *
  * ex: check::is_file("--param", "/path/to/file.txt");
- * 
+ *
  * @param p parameter as string (ex: "--param")
  * @param v parameter value
- * 
+ *
  * @return std::tuple<bool, std::string>
  */
 DEFINE_CHECKER(is_file, p, v)
@@ -1087,14 +1087,14 @@ DEFINE_CHECKER(is_file, p, v)
 /**
  * @ingroup Checkers
  * @brief is_dir checker
- * 
+ *
  * Return true if v corresponds to a directory.
- * 
+ *
  * ex: check::is_dir("--param", "/path/to/dir");
- * 
+ *
  * @param p parameter as string (ex: "--param")
  * @param v parameter value
- * 
+ *
  * @return std::tuple<bool, std::string>
  */
 DEFINE_CHECKER(is_dir, p, v)
@@ -1106,14 +1106,14 @@ DEFINE_CHECKER(is_dir, p, v)
 /**
  * @ingroup Checkers
  * @brief is_number checker
- * 
+ *
  * Return true if v corresponds to a number.
- * 
+ *
  * ex: check::is_number("--param", "10");
- * 
+ *
  * @param p parameter as string (ex: "--file")
  * @param v parameter value
- * 
+ *
  * @return std::tuple<bool, std::string>
  */
 DEFINE_CHECKER(is_number, p, v)
@@ -1140,14 +1140,14 @@ DEFINE_CHECKER(is_number, p, v)
 /**
  * @ingroup Checkers
  * @brief is_dna checker
- * 
+ *
  * Return true if v corresponds to a dna string.
- * 
+ *
  * ex: check::is_dna("--param", "ACGACGA");
- * 
+ *
  * @param p parameter as string (ex: "--param")
  * @param v parameter value
- * 
+ *
  * @return std::tuple<bool, std::string>
  */
 DEFINE_CHECKER(is_dna, p, v)
@@ -1169,14 +1169,14 @@ DEFINE_CHECKER(is_dna, p, v)
 /**
  * @ingroup Checkers
  * @brief is_number checker
- * 
+ *
  * Return true if v corresponds to a rna string.
- * 
+ *
  * ex: check::is_rna("--param", "10");
- * 
+ *
  * @param p parameter as string (ex: "--param")
  * @param v parameter value
- * 
+ *
  * @return std::tuple<bool, std::string>
  */
 DEFINE_CHECKER(is_rna, p, v)
@@ -1199,23 +1199,23 @@ DEFINE_CHECKER(is_rna, p, v)
  * @namespace f
  * @ingroup Checkers
  * @brief bcli checker factories namespace
- * 
+ *
  * Checker factories are function that return check::checker_fn_t.
  * This allows configurable checkers.
- * 
+ *
  */
 namespace f {
 
 /**
  * @ingroup Checkers
  * @brief extension checker factory
- * 
+ *
  * @code
  * auto seems_fasta = check::f::ext("fa|fna");
  * throw_if_false(seems_fasta("--param", "/path/to/file.fasta"));
  * @endcode
  * @param ext A set of extensions as string, sep by '|'.
- * @return checker_fn_t 
+ * @return checker_fn_t
  */
 inline checker_fn_t ext(const std::string& ext)
 {
@@ -1250,7 +1250,7 @@ inline checker_fn_t ext(const std::string& ext)
  * @tparam std::enable_if_t<std::is_arithmetic_v<T>, void>
  * @param start lower bound
  * @param end upper bound
- * @return checker_fn_t 
+ * @return checker_fn_t
  */
 template<typename T,
          typename = typename std::enable_if_t<std::is_arithmetic_v<T>, void>>
@@ -1277,7 +1277,7 @@ inline checker_fn_t range(T start, T end, bool inv = false)
  * throw_if_false(is_valid_cmd("--param", "cmd3"));
  * @endcode
  * @param s A set of strings as one string, sep by '|'.
- * @return checker_fn_t 
+ * @return checker_fn_t
  */
 inline checker_fn_t in(const std::string& s)
 {
@@ -1287,7 +1287,7 @@ inline checker_fn_t in(const std::string& s)
     if (std::any_of(vs.begin(), vs.end(), [v](const std::string& vv) {
       return v == vv;
     })) {is_in = true;}
-  
+
     return std::make_tuple(is_in, utils::format_error(
       p, v, "Not in " + utils::wrap(s, "[]")
     ));
@@ -1301,8 +1301,8 @@ inline checker_fn_t in(const std::string& s)
  * auto lower10 = lower(10);
  * throw_if_false(lower10("--param", "5"));
  * @endcode
- * @param n 
- * @return checker_fn_t 
+ * @param n
+ * @return checker_fn_t
  */
 inline checker_fn_t lower(int n)
 {
@@ -1320,8 +1320,8 @@ inline checker_fn_t lower(int n)
  * auto higher10 = higher(10);
  * throw_if_false(lower10("--param", "15"));
  * @endcode
- * @param n 
- * @return checker_fn_t 
+ * @param n
+ * @return checker_fn_t
  */
 inline checker_fn_t higher(int n)
 {
@@ -1342,7 +1342,7 @@ inline checker_fn_t higher(int n)
  * @tparam SIZE number of magic bytes, std::array<uint8_t, SIZE>
  * @param name a name
  * @param flag an array of bytes
- * @return checker_fn_t 
+ * @return checker_fn_t
  */
 template<size_t SIZE>
 inline checker_fn_t check_magic(const std::string& name, std::array<uint8_t, SIZE> flag)
@@ -1356,7 +1356,7 @@ inline checker_fn_t check_magic(const std::string& name, std::array<uint8_t, SIZ
     std::ifstream inf(v, std::ios::binary | std::ios::in);
     if (inf.good())
       inf.read(reinterpret_cast<char*>(buffer.data()), buffer.size());
-    
+
     if (buffer == flag) is_valid = true;
 
     return std::make_tuple(is_valid,
@@ -1369,98 +1369,98 @@ inline checker_fn_t check_magic(const std::string& name, std::array<uint8_t, SIZ
 /**
  * @ingroup Checkers
  * @brief fastx ext checker
- * 
+ *
  */
 inline checker_fn_t seems_fastx = f::ext("fa|fna|fasta|fastq|fq");
 
 /**
  * @ingroup Checkers
  * @brief fasta ext checker
- * 
+ *
  */
 inline checker_fn_t seems_fasta = f::ext("fa|fna|fasta");
 
 /**
  * @ingroup Checkers
  * @brief fastq ext checker
- * 
+ *
  */
 inline checker_fn_t seems_fastq = f::ext("fastq|fq");
 
 /**
  * @ingroup Checkers
  * @brief sam ext checker
- * 
+ *
  */
 inline checker_fn_t seems_sam = f::ext("sam");
 
 /**
  * @ingroup Checkers
  * @brief bam ext checker
- * 
+ *
  */
 inline checker_fn_t seems_bam = f::ext("bam");
 
 /**
  * @ingroup Checkers
  * @brief cram ext checker
- * 
+ *
  */
 inline checker_fn_t seems_cram = f::ext("cram");
 
 /**
  * @ingroup Checkers
  * @brief comp ext checker
- * 
+ *
  */
 inline checker_fn_t seems_comp = f::ext("gz|bz2|lz4");
 
 /**
  * @ingroup Checkers
  * @brief gz ext checker
- * 
+ *
  */
 inline checker_fn_t seems_gz = f::ext("gz");
 
 /**
  * @ingroup Checkers
  * @brief fastx
- * 
+ *
  */
 inline checker_fn_t seems_lz4 = f::ext("lz4");
 
 /**
  * @ingroup Checkers
  * @brief gz checker
- * 
+ *
  */
 inline auto is_gz = f::check_magic<2>("gz", {0x1F, 0x8B});
 
 /**
  * @ingroup Checkers
  * @brief lz4_frame checker
- * 
+ *
  */
 inline auto is_lz4_frame = f::check_magic<4>("lz4frame", {0x04, 0x22, 0x4D, 0x18});
 
 /**
  * @ingroup Checkers
  * @brief bz2 checker
- * 
+ *
  */
 inline auto is_bz2 = f::check_magic<3>("bz2", {0x42, 0x5A, 0x68});
 
 /**
  * @ingroup Checkers
  * @brief bam checker
- * 
+ *
  */
 inline auto is_bam = f::check_magic<4>("bam", {0x1F, 0x8B, 0x08, 0x04});
 
 /**
  * @ingroup Checkers
  * @brief cram checker
- * 
+ *
  */
 inline auto is_cram = f::check_magic<4>("cram", {0x43, 0x52, 0x41, 0x4d});
 
@@ -1478,7 +1478,7 @@ const std::string FLAG_VALUE = "BCLI_FSET";
  * @ingroup Param
  * @enum Action
  * @brief parameter actions
- * 
+ *
  */
 enum Action
 {
@@ -1490,8 +1490,8 @@ enum Action
 /**
  * @namespace param
  * @brief bcli param namespace
- * 
- * 
+ *
+ *
  */
 namespace param {
 
@@ -1501,7 +1501,7 @@ class Param;
  * @ingroup Param
  * @typedef param_t
  * @brief param_t
- * 
+ *
  * Param constuctor is private, Param is always used as std::shared_ptr<Param>
  */
 using param_t = std::shared_ptr<Param>;
@@ -1510,8 +1510,8 @@ using param_t = std::shared_ptr<Param>;
  * @ingroup Param
  * @typedef checker_fn_t
  * @brief checker function signature
- * 
- * 
+ *
+ *
  */
 using checker_fn_t = check::checker_fn_t;
 
@@ -1519,7 +1519,7 @@ using checker_fn_t = check::checker_fn_t;
  * @ingroup Param
  * @typedef setter_fn_t
  * @brief setter function signature
- * 
+ *
  */
 using setter_fn_t = std::function<void(const std::string&)>;
 
@@ -1527,7 +1527,7 @@ using setter_fn_t = std::function<void(const std::string&)>;
  * @ingroup Param
  * @typedef help_fn_t
  * @brief help function signature
- * 
+ *
  */
 using help_fn_t = std::function<std::string()>;
 
@@ -1535,7 +1535,7 @@ using help_fn_t = std::function<std::string()>;
  * @ingroup Param
  * @typedef callback_fn_t
  * @brief callback function signature
- * 
+ *
  */
 using callback_fn_t = std::function<void()>;
 
@@ -1543,12 +1543,12 @@ using conf = config::Config;
 
 /**
  * @brief get a setter from variable reference
- * 
+ *
  * Returns a setter to set T var
- * 
- * @tparam T 
+ *
+ * @tparam T
  * @param var variable to set
- * @return setter_fn_t 
+ * @return setter_fn_t
  */
 template<typename T>
 setter_fn_t get_setter(T& var)
@@ -1568,7 +1568,7 @@ setter_fn_t get_setter(T& var)
   };
 }
 
-//enum CheckerMode 
+//enum CheckerMode
 //{
 //  AND,
 //  OR,
@@ -1580,7 +1580,7 @@ class ParamGroup;
 /**
  * @ingroup Param
  * @brief Param
- * 
+ *
  * Parameter class
  */
 class Param: public std::enable_shared_from_this<Param>
@@ -1600,8 +1600,8 @@ class Param: public std::enable_shared_from_this<Param>
 public:
   /**
    * @brief get idx
-   * 
-   * @return std::tuple<std::string, std::string> 
+   *
+   * @return std::tuple<std::string, std::string>
    */
   std::tuple<std::string, std::string> idx()
   {
@@ -1610,8 +1610,8 @@ public:
 
   /**
    * @brief get raw name
-   * 
-   * @return std::string 
+   *
+   * @return std::string
    */
   std::string raw()
   {
@@ -1620,9 +1620,9 @@ public:
 
   /**
    * @brief set default value
-   * 
-   * @param default_value 
-   * @return param_t 
+   *
+   * @param default_value
+   * @return param_t
    */
   param_t def(const std::string& default_value)
   {
@@ -1634,9 +1634,9 @@ public:
 
   /**
    * @brief set checker
-   * 
-   * @param checker_callback 
-   * @return param_t 
+   *
+   * @param checker_callback
+   * @return param_t
    */
   param_t checker(checker_fn_t checker_callback)
   {
@@ -1656,10 +1656,10 @@ public:
 
   /**
    * @brief set setter (auto from variable reference)
-   * 
-   * @tparam T 
-   * @param var 
-   * @return param_t 
+   *
+   * @tparam T
+   * @param var
+   * @return param_t
    */
   template<typename T>
   param_t setter(T& var)
@@ -1670,9 +1670,9 @@ public:
 
   /**
    * @brief set setter
-   * 
-   * @param setter_callback 
-   * @return param_t 
+   *
+   * @param setter_callback
+   * @return param_t
    */
   param_t setter_c(setter_fn_t setter_callback)
   {
@@ -1682,11 +1682,11 @@ public:
 
   /**
    * @brief set callback
-   * 
+   *
    * Callback is called if parameter is used by user.
-   * 
-   * @param callback 
-   * @return param_t 
+   *
+   * @param callback
+   * @return param_t
    */
   param_t callback(callback_fn_t callback)
   {
@@ -1697,13 +1697,13 @@ public:
 
   /**
    * @brief set dependencies
-   * 
+   *
    * see @link 04_bcli_deps_bans.cpp @endlink
-   * 
-   * @param checker 
-   * @param p 
-   * @param pchecker 
-   * @return param_t 
+   *
+   * @param checker
+   * @param p
+   * @param pchecker
+   * @return param_t
    */
   param_t depends_on(check::checker_fn_t checker, param_t p, check::checker_fn_t pchecker = nullptr)
   {
@@ -1712,14 +1712,14 @@ public:
   }
 
   /**
-   * @brief 
-   * 
+   * @brief
+   *
    * see @link 04_bcli_deps_bans.cpp @endlink
-   * 
-   * @param checker 
-   * @param p 
-   * @param pchecker 
-   * @return param_t 
+   *
+   * @param checker
+   * @param p
+   * @param pchecker
+   * @return param_t
    */
   param_t banned(check::checker_fn_t checker, param_t p, check::checker_fn_t pchecker = nullptr)
   {
@@ -1729,8 +1729,8 @@ public:
 
   /**
    * @brief use param as flag (without value)
-   * 
-   * @return param_t 
+   *
+   * @return param_t
    */
   param_t as_flag()
   {
@@ -1747,13 +1747,13 @@ public:
 
   /**
    * @brief set metavar
-   * 
-   * Metavar shown in usage: \n 
-   * meta("INT") -> -i/--integer <INT> \n 
-   * meta("FILE") -> --file <FILE> \n 
-   * 
-   * @param meta 
-   * @return param_t 
+   *
+   * Metavar shown in usage: \n
+   * meta("INT") -> -i/--integer <INT> \n
+   * meta("FILE") -> --file <FILE> \n
+   *
+   * @param meta
+   * @return param_t
    */
   param_t meta(const std::string& meta)
   {
@@ -1763,11 +1763,11 @@ public:
 
   /**
    * @brief set action
-   * 
+   *
    * @see bc::Action
-   * 
-   * @param action 
-   * @return param_t 
+   *
+   * @param action
+   * @return param_t
    */
   param_t action(Action action)
   {
@@ -1775,10 +1775,16 @@ public:
     return shared_from_this();
   }
 
+  param_t hide()
+  {
+    m_hidden = true;
+    return shared_from_this();
+  }
+
   /**
    * @brief get str value
-   * 
-   * @return const std::string& 
+   *
+   * @return const std::string&
    */
   const std::string& value()
   {
@@ -1787,8 +1793,8 @@ public:
 
   /**
    * @brief get default value
-   * 
-   * @return const std::string& 
+   *
+   * @return const std::string&
    */
   const std::string& get_def()
   {
@@ -1797,9 +1803,9 @@ public:
 
   /**
    * @brief check if param is set
-   * 
-   * @return true 
-   * @return false 
+   *
+   * @return true
+   * @return false
    */
   bool is_set()
   {
@@ -1808,20 +1814,20 @@ public:
 
   /**
    * @brief get param value
-   * 
+   *
    * Support:
    * - Arithmetic types (int, float, double...)
    * - bool
    * - std::string
-   * 
+   *
    * Example:
    * @code
    * bc::param_t p;
    * int v = p->as<int>();
    * @endcode
-   * 
+   *
    * @endcode
-   * 
+   *
    * Extend for custom types:
    * @code
    * class MyClass
@@ -1829,7 +1835,7 @@ public:
    * public:
    *   MyClass(std::string one, int i) {}
    * };
-   * 
+   *
    * template<>
    * MyClass bc::param::Param::as<MyClass>()
    * {
@@ -1841,10 +1847,10 @@ public:
    * bc::param_t p;
    * MyClass c = p->as<MyClass>();
    * @endcode
-   * 
-   * 
-   * @tparam T 
-   * @return T 
+   *
+   *
+   * @tparam T
+   * @return T
    */
   template<typename T>
   T as()
@@ -1878,7 +1884,7 @@ PRIVATE:
       m_has_pname = true;
     }
     if (checker) c_checkers.push_back(checker);
-  } 
+  }
 
   const std::vector<std::tuple<checker_fn_t, param_t, checker_fn_t>>& get_dependency()
   {
@@ -1913,6 +1919,11 @@ PRIVATE:
     if (m_long.empty())
       return m_long;
     return std::string("--") + m_long;
+  }
+
+  bool hidden() const
+  {
+    return m_hidden;
   }
 
   const Action get_action() const
@@ -1988,7 +1999,7 @@ PRIVATE:
   std::string m_short     {};
   std::string m_long      {};
   std::string m_meta      {conf::get().m_default_meta};
-  
+
   Action m_action {Action::Nothing};
 
   std::vector<std::tuple<checker_fn_t, param_t, checker_fn_t>> m_depends_on {};
@@ -2001,7 +2012,7 @@ PRIVATE:
   bool m_is_flag         {false};
 
   bool m_as_default      {false};
-
+  bool m_hidden          {false};
   //CheckerMode m_check_mode {CheckerMode::AND};
 
 PRIVATE:
@@ -2016,7 +2027,7 @@ PRIVATE:
 /**
  * @ingroup Param
  * @brief make a std::shared_ptr<Param>
- * 
+ *
  * @param name parameter name -> "-p" || "--param" || "-p/--param"
  * @param help parameter help
  * @param setter a setter function
@@ -2049,7 +2060,7 @@ class ParamGroup;
  * @ingroup ParamGroup
  * @typedef pgroup_t
  * @brief pgroup_t
- * 
+ *
  * ParamGroup constructor is private, ParamGroup is always used as std::shared_ptr<ParamGroup>
  */
 using pgroup_t = std::shared_ptr<ParamGroup>;
@@ -2057,7 +2068,7 @@ using pgroup_t = std::shared_ptr<ParamGroup>;
 /**
  * @ingroup ParamGroup
  * @brief ParamGroup
- * 
+ *
  * ParamGroup class
  */
 class ParamGroup
@@ -2085,6 +2096,8 @@ PRIVATE:
     auto [maxs, maxl] = padding();
     for (auto& p : m_order)
     {
+      if (p->hidden())
+        continue;
       std::string fl = p->is_flag() ? " " + fsymb : "";
       help << utils::sp(4);
       if (!p->sp().empty())
@@ -2108,10 +2121,10 @@ PRIVATE:
 public:
   /**
    * @brief add param
-   * 
+   *
    * @param name param name (ex: "-p/--param")
    * @param help parma help
-   * @return param_t 
+   * @return param_t
    */
   param_t add_param(const std::string& name,
                     const std::string& help)
@@ -2123,9 +2136,9 @@ public:
 
   /**
    * @brief get param_t
-   * 
+   *
    * @param pname param name
-   * @return param_t 
+   * @return param_t
    */
   param_t get(const std::string& pname)
   {
@@ -2137,7 +2150,7 @@ public:
 
   auto begin() { return m_order.begin(); }
   auto end() { return m_order.end(); }
-  auto begin() const { return m_order.begin(); } 
+  auto begin() const { return m_order.begin(); }
   auto end() const { return m_order.end(); }
 
 PRIVATE:
@@ -2198,10 +2211,10 @@ PRIVATE:
 /**
  * @ingroup ParamGroup
  * @brief make a std::shared_ptr<ParamGroup>
- * 
+ *
  * @param name group name
  * @param desc group description
- * @return pgroup_t 
+ * @return pgroup_t
  */
 inline pgroup_t make_group(const std::string& name,
                            const std::string& desc)
@@ -2219,8 +2232,8 @@ class Command;
 /**
  * @ingroup Command
  * @typedef cmd_t
- * @brief Command constuctor is private, Command is always used as std::shared_ptr<Command> 
- * 
+ * @brief Command constuctor is private, Command is always used as std::shared_ptr<Command>
+ *
  */
 using cmd_t = std::shared_ptr<Command>;
 
@@ -2228,7 +2241,7 @@ class Commands;
 /**
  * @ingroup Command
  * @brief Command
- * 
+ *
  * Command class
  */
 class Command
@@ -2251,8 +2264,8 @@ PRIVATE:
 public:
   /**
    * @brief set command help
-   * 
-   * @param help 
+   *
+   * @param help
    */
   void set_help(help_fn_t help)
   {
@@ -2261,10 +2274,10 @@ public:
 
   /**
    * @brief add param to current group
-   * 
+   *
    * @param name parameter name (ex: "-p/--param")
    * @param help  parameter help
-   * @return param_t 
+   * @return param_t
    */
   param_t add_param(const std::string& name,
                    const std::string& help)
@@ -2274,10 +2287,10 @@ public:
 
   /**
    * @brief add group to command
-   * 
+   *
    * @param name group name
    * @param desc group description
-   * @return pgroup_t 
+   * @return pgroup_t
    */
   pgroup_t add_group(const std::string& name,
                      const std::string& desc)
@@ -2289,30 +2302,30 @@ public:
 
   /**
    * @brief add a group with common parameters
-   * 
+   *
    * "-h/--help" -> trigger help \n
    * "-v/--verbose" -> trigger version \n
    * "-d/--debug" \n
    * "--version" \n
    * @see bc::Action
    * @see Configuration
-   * 
+   *
    * @param name group name
-   * @return pgroup_t 
+   * @return pgroup_t
    */
   pgroup_t add_common(const std::string& name = "common")
   {
     if (conf::get().has_common())
     {
       pgroup_t grp = add_group(name, {});
-      if (conf::get().m_help) 
+      if (conf::get().m_help)
         grp->add_param("-h/--help", "Show this message and exit.")
            ->as_flag()->action(Action::ShowHelp);
       if (conf::get().m_verbose)
         grp->add_param("-v/--verbose", "Verbose mode.")->as_flag();
       if (conf::get().m_debug)
         grp->add_param("-d/--debug", "Debug mode.")->as_flag();
-      if (conf::get().m_version) 
+      if (conf::get().m_version)
        grp->add_param("--version", "Show version and exit.")
            ->as_flag()->action(Action::ShowVersion);
       return grp;
@@ -2323,18 +2336,18 @@ public:
 
   /**
    * @brief get parameter
-   * 
+   *
    * @code
    * cmd->add_param("-p/--param", "help param");
-   * 
+   *
    * cmd->getp("p");
    * cmd->getp("param");
    * cmd->getp("-p");
    * cmd->getp("--param");
-   * 
+   *
    * @endcode
-   * @param name 
-   * @return param_t 
+   * @param name
+   * @return param_t
    */
   param_t getp(const std::string& name)
   {
@@ -2347,8 +2360,8 @@ public:
 
   /**
    * @brief get positional parameters
-   * 
-   * @return const std::vector<std::string>& 
+   *
+   * @return const std::vector<std::string>&
    */
   const std::vector<std::string>& get_positionals() const
   {
@@ -2357,9 +2370,9 @@ public:
 
   /**
    * @brief set positionals help
-   * 
-   * @param usage 
-   * @param help 
+   *
+   * @param usage
+   * @param help
    */
   void set_positionals_help(const std::string& usage, const std::string& help)
   {
@@ -2369,10 +2382,10 @@ public:
 
   /**
    * @brief set number of positionals
-   * 
+   *
    * @param nb number of positionals
-   * @param usage 
-   * @param help 
+   * @param usage
+   * @param help
    */
   void set_positionals(size_t nb,
                        const std::string& usage,
@@ -2386,11 +2399,11 @@ public:
 
   /**
    * @brief set positionals bounds
-   * 
+   *
    * @param min min number of positionals
    * @param max max number of positionals
-   * @param usage 
-   * @param help 
+   * @param usage
+   * @param help
    */
   void set_positional_bounds(size_t min, size_t max,
                              const std::string& usage,
@@ -2406,8 +2419,8 @@ public:
 
   /**
    * @brief set checker for positionals
-   * 
-   * @param checker 
+   *
+   * @param checker
    */
   void positionals_checker(checker_fn_t checker)
   {
@@ -2421,7 +2434,7 @@ public:
 
   auto begin() { return m_order.begin(); }
   auto end() { return m_order.end(); }
-  auto begin() const { return m_order.begin(); } 
+  auto begin() const { return m_order.begin(); }
   auto end() const { return m_order.end(); }
 
 PRIVATE:
@@ -2471,11 +2484,13 @@ PRIVATE:
     std::vector<std::string> required;
     std::vector<std::string> optionals;
     std::vector<std::string> flags;
-  
+
     for (auto& group : m_order)
     {
       for (auto& p : *group)
       {
+        if (p->hidden())
+          continue;
         std::string bds = p->is_required() ? "" : "[]";
         std::string raw;
         if (p->is_flag())
@@ -2483,7 +2498,7 @@ PRIVATE:
         else
           raw = p->raw() + " " + utils::wrap(p->get_meta(), "<>");
         std::string fm = utils::wrap(raw, bds);
-        
+
         if (p->is_required())
           required.push_back(fm);
         else if (p->is_flag())
@@ -2532,16 +2547,16 @@ PRIVATE:
             "requires at least " + std::to_string(m_l_pos) + " positionals.");
         else if (m_positionals.size() > m_u_pos)
           return std::make_tuple(
-            false, 
+            false,
             "requires at most " + std::to_string(m_u_pos) + " positionals.");
       }
       else
         return std::make_tuple(
-          m_positionals.size() == m_e_pos, 
+          m_positionals.size() == m_e_pos,
           "number of positionals must be " + std::to_string(m_e_pos)
         );
     }
-    
+
     if (c_pchecker)
     {
       int i = 0;
@@ -2553,7 +2568,7 @@ PRIVATE:
         i++;
       }
     }
-    
+
     return std::make_tuple(true, "");
   }
 
@@ -2568,7 +2583,7 @@ PRIVATE:
   void add(pgroup_t pg)
   {
     if (m_groups.count(pg->name()) > 0)
-    {  
+    {
       ex::ExHandler::get().push(
         ex::AlreadyExistsError(pg->name() + "group already exists in command " + m_name));
     }
@@ -2615,11 +2630,11 @@ PRIVATE:
 /**
  * @ingroup Command
  * @brief make a std::shared_ptr<Command>
- * 
+ *
  * @param name command name
  * @param desc command description
  * @param help command help
- * @return cmd_t 
+ * @return cmd_t
  */
 inline cmd_t make_cmd(const std::string& name,
                       const std::string& desc,
@@ -2633,7 +2648,7 @@ class Commands;
  * @ingroup Command
  * @typedef cmds_t
  * @brief Commands constuctor is private, Commands is always used as std::shared_ptr<Commands>
- * 
+ *
  */
 using cmds_t = std::unique_ptr<Commands>;
 
@@ -2693,7 +2708,7 @@ PRIVATE:
       return help.str();
     }
   }
-  
+
   void add(cmd_t c)
   {
     m_cmds.insert({c->name(), c});
@@ -2721,7 +2736,7 @@ inline cmds_t make_cmds(const std::string& name,
 /**
  * @defgroup Parser
  * @brief About bcli parser.
- * 
+ *
  */
 
 using pgroup_t = param::pgroup_t;
@@ -2749,7 +2764,7 @@ try {                                  \
 /**
  * @ingroup Parser
  * @brief bcli parser
- * 
+ *
  * @tparam Mode 0: classical, 1: multiple commands
  */
 template<int Mode = 0>
@@ -2768,9 +2783,9 @@ public:
   /**
    * @ingroup Parser
    * @brief parse argv
-   * 
-   * @param argc 
-   * @param argv 
+   *
+   * @param argc
+   * @param argv
    */
   void parse(int argc, char* argv[])
   {
@@ -2779,7 +2794,7 @@ public:
     if (!m_is_cmd_mode || m_bypass)
     {
       for (int i=1; i<argc; i++)
-      { 
+      {
         switch (process_arg(argv[i]))
         {
         case Action::ShowHelp:
@@ -2822,11 +2837,11 @@ public:
   /**
    * @ingroup Parser
    * @brief add commmand
-   * 
+   *
    * @param name command name
    * @param desc command description
    * @param help command help
-   * @return param::cmd_t 
+   * @return param::cmd_t
    */
   ENABLE_IF(1)
   param::cmd_t add_command(const std::string& name,
@@ -2850,16 +2865,16 @@ public:
   /**
    * @ingroup Parser
    * @brief add group
-   * 
+   *
    * @param name group name
    * @param desc group description
-   * @return param::pgroup_t 
+   * @return param::pgroup_t
    */
   ENABLE_IF(0)
   param::pgroup_t add_group(const std::string& name,
                             const std::string& desc)
   {
-    if (m_current_group != m_current_cmd->get(m_current_group->name())) 
+    if (m_current_group != m_current_cmd->get(m_current_group->name()))
       m_current_cmd->add(m_current_group);
     m_current_group = param::make_group(name, desc);
     m_current_cmd->add(m_current_group);
@@ -2869,9 +2884,9 @@ public:
   /**
    * @ingroup Parser
    * @brief add common
-   * 
+   *
    * @param name name
-   * @return param::pgroup_t 
+   * @return param::pgroup_t
    */
   ENABLE_IF(0)
   param::pgroup_t add_common(const std::string& name = "common")
@@ -2884,10 +2899,10 @@ public:
   /**
    * @ingroup Parser
    * @brief add param
-   * 
+   *
    * @param name param name
    * @param help param help
-   * @return param::param_t 
+   * @return param::param_t
    */
   ENABLE_IF(0)
   param::param_t add_param(const std::string& name,
@@ -2901,8 +2916,8 @@ public:
   /**
    * @ingroup Parser
    * @brief get positional arguments
-   * 
-   * @return const std::vector<std::string>& 
+   *
+   * @return const std::vector<std::string>&
    */
   const std::vector<std::string>& get_positionals() const
   {
@@ -2912,7 +2927,7 @@ public:
   /**
    * @ingroup Parser
    * @brief set number of positionals
-   * 
+   *
    * @param nb number of positionals
    * @param usage positionals usage
    * @param help positionals help
@@ -2926,7 +2941,7 @@ public:
   /**
    * @ingroup Parser
    * @brief set positional bounds
-   * 
+   *
    * @param min min number of positionals
    * @param max max number of positionals
    * @param usage positionals usage
@@ -2943,7 +2958,7 @@ public:
   /**
    * @ingroup Parser
    * @brief set positionals usage and help
-   * 
+   *
    * @param usage positionals usage
    * @param help positionals help
    */
@@ -2956,7 +2971,7 @@ public:
   /**
    * @ingroup Parser
    * @brief set positionals checker
-   * 
+   *
    * @param checker
    */
   ENABLE_IF(0)
@@ -2968,8 +2983,8 @@ public:
   /**
    * @ingroup Parser
    * @brief set help
-   * 
-   * @param help 
+   *
+   * @param help
    */
   void set_help(std::function<std::string()> help)
   {
@@ -2982,7 +2997,7 @@ public:
   /**
    * @ingroup Parser
    * @brief get param
-   * 
+   *
    * For "-p/--param":
    * @code
    * cli->getp("p");
@@ -2991,7 +3006,7 @@ public:
    * cli->getp("--param");
    * @endcode
    * @param pname param name
-   * @return param_t 
+   * @return param_t
    */
   param_t getp(const std::string& pname) const
   {
@@ -3042,7 +3057,7 @@ PRIVATE:
         throw ex::MissingValueError(m_current + "needs a value.");
       m_current = arg;
       m_is_param = true;
-      
+
       param::param_t cp = get_current_param(m_current);
       if (cp->is_flag())
       {
@@ -3108,7 +3123,7 @@ PRIVATE:
                 throw ex::DependsError(utils::format_depend_errors(p, d, dmsg));
           }
         }
-        
+
         for (auto& [c, d, dc] : p->get_banned())
         {
           auto [res, msg] = c(p->raw(), p->value());
