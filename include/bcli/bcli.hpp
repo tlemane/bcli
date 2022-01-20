@@ -2087,6 +2087,9 @@ PRIVATE:
 
   std::string get_help()
   {
+    if (m_hidden)
+      return "";
+
     std::stringstream help;
     const std::string& fsymb = conf::get().m_flag_symbol;
     help.fill(' ');
@@ -2153,6 +2156,11 @@ public:
   auto begin() const { return m_order.begin(); }
   auto end() const { return m_order.end(); }
 
+  void hide()
+  {
+    m_hidden = true;
+  }
+
 PRIVATE:
   bool exists(const std::string& pname)
   {
@@ -2206,6 +2214,7 @@ PRIVATE:
   std::unordered_map<std::string, param_t> m_params {};
   std::vector<param_t>                     m_order {};
   size_t                                   m_nbp {0};
+  bool                                     m_hidden {false};
 };
 
 /**
