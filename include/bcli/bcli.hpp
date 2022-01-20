@@ -130,6 +130,9 @@ namespace bc {
 
 namespace fs = std::filesystem;
 
+template<typename... Args>
+void unused(Args&&...) {}
+
 /**
  * @defgroup Configuration
  * @brief About bcli configuration
@@ -211,7 +214,7 @@ public:
   friend class Command;
 };
 
-}; // end of namespace config
+} // end of namespace config
 
 
 /**
@@ -498,7 +501,7 @@ PRIVATE:
   std::vector<BCliError> m_exceptions;
 };
 
-}; // end of namespace ex
+} // end of namespace ex
 
 
 /**
@@ -992,7 +995,7 @@ inline void exit_bcli(const ex::BCliError& e)
     std::cerr << wrap(e.get_name(), "[]") << " -> " << e.get_msg() << std::endl;
 }
 
-}; // end of namespace utils
+} // end of namespace utils
 
 /**
  * @defgroup Checkers
@@ -1062,6 +1065,8 @@ inline void throw_if_false(const checker_ret_t& rc)
 
 DEFINE_CHECKER(always_true, p, v)
 {
+  unused(p);
+  unused(v);
   return std::make_tuple(true, "A true checker.");
 }
 
@@ -1254,7 +1259,7 @@ inline checker_fn_t ext(const std::string& ext)
  */
 template<typename T,
          typename = typename std::enable_if_t<std::is_arithmetic_v<T>, void>>
-inline checker_fn_t range(T start, T end, bool inv = false)
+inline checker_fn_t range(T start, T end)
 {
   return [start, end](const std::string& p, const std::string& v) -> checker_ret_t {
     throw_if_false(is_number(p, v));
@@ -1364,7 +1369,7 @@ inline checker_fn_t check_magic(const std::string& name, std::array<uint8_t, SIZ
   };
 }
 
-}; // end of namespace f (checker factories)
+} // end of namespace f (checker factories)
 
 /**
  * @ingroup Checkers
@@ -1464,7 +1469,7 @@ inline auto is_bam = f::check_magic<4>("bam", {0x1F, 0x8B, 0x08, 0x04});
  */
 inline auto is_cram = f::check_magic<4>("cram", {0x43, 0x52, 0x41, 0x4d});
 
-}; // end of namespace checker
+} // end of namespace checker
 
 
 /**
@@ -1926,7 +1931,7 @@ PRIVATE:
     return m_hidden;
   }
 
-  const Action get_action() const
+  Action get_action() const
   {
     return m_action;
   }
@@ -2522,7 +2527,7 @@ PRIVATE:
     else pad = m_name.size();
 
     auto format = [&ss, &pad](const std::vector<std::string> vec, int c) -> int {
-      int max_size = 90;
+      size_t max_size = 90;
       int current = c;
       for (auto& f : vec)
       {
@@ -2740,7 +2745,7 @@ inline cmds_t make_cmds(const std::string& name,
   return std::make_unique<Commands>(Commands(name, desc, version));
 }
 
-}; // end of namespace param
+} // end of namespace param
 
 /**
  * @defgroup Parser
@@ -3180,6 +3185,6 @@ PRIVATE:
   bool m_bypass {false};
 };
 
-}; // end of namespace bc
+} // end of namespace bc
 
 #undef PRIVATE
