@@ -2166,6 +2166,11 @@ public:
     m_hidden = true;
   }
 
+  bool hidden()
+  {
+    return m_hidden;
+  }
+
 PRIVATE:
   bool exists(const std::string& pname)
   {
@@ -2501,6 +2506,8 @@ PRIVATE:
 
     for (auto& group : m_order)
     {
+      if (group->hidden())
+        continue;
       for (auto& p : *group)
       {
         if (p->hidden())
